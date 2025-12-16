@@ -1,0 +1,41 @@
+<div th:fragment="content">
+    <h2>Students</h2>
+    <div class="d-flex justify-content-between mb-2">
+        <a class="btn btn-primary" th:href="@{/students/add}">Add Student</a>
+
+        <form class="d-flex" method="get" th:action="@{/students}">
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Search name" th:value="${keyword}">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+
+    <table class="table table-bordered">
+        <tr><th>ID</th><th>Photo</th><th>Name</th><th>Email</th><th>Course</th><th>Age</th><th>Actions</th></tr>
+        <tr th:each="s : ${students}">
+            <td th:text="${s.id}"></td>
+            <td>
+               <img th:if="${s.photo != null}"
+     th:src="@{'/students/photo/' + ${s.id}}"
+     style="height:50px;">
+
+            </td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.email}"></td>
+            <td th:text="${s.course != null ? s.course.courseName : ''}"></td>
+            <td th:text="${s.age}"></td>
+            <td>
+                <a th:href="@{/students/edit/{id}(id=${s.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/students/delete/{id}(id=${s.id})}" class="btn btn-danger btn-sm" 
+                   th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            <li th:each="i : ${#numbers.sequence(0, totalPages-1)}" class="page-item">
+                <a th:href="@{/students(page=${i}, keyword=${keyword})}" class="page-link" th:text="${i+1}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>

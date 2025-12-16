@@ -1,0 +1,17 @@
+<div th:fragment="content">
+    <h2>Dashboard</h2>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Total Students</h5>
+                <h2 th:text="${studentCount}"></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Total Courses</h5>
+                <h2 th:text="${courseCount}"></h2>
+            </div>
+        </div>
+    </div>
+</div>

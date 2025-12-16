@@ -1,0 +1,30 @@
+<div th:fragment="content">
+    <h2>Edit Student</h2>
+    <form th:action="@{/students/save}" th:object="${student}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="mb-2">
+            <input class="form-control" th:field="*{name}" placeholder="Name" required />
+        </div>
+        <div class="mb-2">
+            <input class="form-control" th:field="*{email}" placeholder="Email" required />
+        </div>
+        <div class="mb-2">
+            <input class="form-control" th:field="*{age}" placeholder="Age" type="number" required />
+        </div>
+       <div class="mb-2">
+    <select class="form-control" th:field="*{course.id}">
+        <option value="">Select Course</option>
+        <option th:each="c : ${courses}"
+                th:value="${c.id}"
+                th:text="${c.courseName}">
+        </option>
+    </select>
+</div>
+
+        <div class="mb-2">
+            <input type="file" name="file" class="form-control"/>
+        </div>
+        <button class="btn btn-primary">Update</button>
+        <a href="/students" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
